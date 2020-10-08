@@ -1,15 +1,24 @@
+#logging :
+#  file:
+#    path: logs
+#  level:
+#    "com.toy.mealimeter" : "info"
+
 spring:
   datasource:
     hikari:
-      driver-class-name: org.h2.Driver
-#      jdbc-url: jdbc:h2:./data/mealimeter # ./ Project root
-      jdbc-url: jdbc:h2:tcp://localhost:9093/./data/mealimeter
-      username: sa
-      password:
-  h2:
-    console:
-      enabled: true
-      path: /h2 # default /h2-console
+      jdbc-url: jdbc:mysql://mealimeter.cng3wp3rp9ml.ap-northeast-2.rds.amazonaws.com:3306/mealimeter?serverTimezone=Asia/Seoul&useSSL=false&useUnicode=yes&characterEncoding=UTF-8&autoReconnect=true
+      username: admin
+      password: fine0042*
+      driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: mysql
+    generate-ddl: true
+    properties:
+      hibernate.format_sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
+
+server:
+  port: 3590
