@@ -1,2 +1,0 @@
-com/toy/mealimeter/MealimeterApplicationTests.java
- com.toy.mealimeter.MealimeterApplicationTests
