@@ -16,29 +16,6 @@ public class MealimeterApplication {
 
     public static void main(String[] args) throws FirebaseAuthException {
         SpringApplication.run(MealimeterApplication.class, args);
-
-        hello();
-    }
-
-    public static void hello() throws FirebaseAuthException {
-
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-
-        UserRecord userRecord = firebaseAuth.getUserByEmail("wowuser8014@gmail.com");
-        System.out.println("Successfully fetched user data: " + userRecord.getDisplayName());
-
-        Map<String, Object> customToken = new HashMap<>();
-        customToken.put("test", "hello");
-
-        firebaseAuth.setCustomUserClaims("iBtmhqQDBkfhRvu54Z33vTaezzt2", customToken);
-        String token = firebaseAuth.createCustomToken("iBtmhqQDBkfhRvu54Z33vTaezzt2");
-        System.out.println("token :: " + token);
-
-        // Verify the ID token first.
-//        FirebaseToken decoded = FirebaseAuth.getInstance().verifyIdToken(idToken);
-//        if (Boolean.TRUE.equals(decoded.getClaims().get("test"))) {
-//            // Allow access to requested admin resource.
-//        }
     }
 
 }

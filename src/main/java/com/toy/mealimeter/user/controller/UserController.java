@@ -1,14 +1,16 @@
 package com.toy.mealimeter.user.controller;
 
+import com.toy.mealimeter.config.security.SecurityService;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class UserController {
 
-    @RequestMapping("/hello")
+    @GetMapping("/hello")
     public String user() {
-        return "Hello World";
+        return SecurityService.getUser().toString();
     }
 
 }

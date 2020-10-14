@@ -33,25 +33,4 @@ public class FirebaseConfig {
 
         return FirebaseApp.initializeApp(options);
     }
-
-    @Component
-    public static class FirebaseSecurity {
-
-        public void hello() throws FirebaseAuthException {
-
-            FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-
-            UserRecord userRecord = firebaseAuth.getUserByEmail("wowuser8014@gmail.com");
-            System.out.println("Successfully fetched user data: " + userRecord.getDisplayName());
-
-            Map<String, Object> customToken = new HashMap<>();
-            customToken.put("test", "hello");
-
-            String token = firebaseAuth.createCustomToken("iBtmhqQDBkfhRvu54Z33vTaezzt2", customToken);
-
-            System.out.println("token :: " + token);
-
-        }
-
-    }
 }
