@@ -45,9 +45,8 @@ public class SecurityFilter extends OncePerRequestFilter {
 		FirebaseToken decodedToken = null;
 		Credentials.CredentialType type = null;
 		boolean strictServerSessionEnabled = securityProps.getFirebaseProps().isEnableStrictServerSession();
-		Cookie sessionCookie = cookieUtils.getCookie("session");
+		Cookie sessionCookie = cookieUtils.getCookie(request,"session");
 		String token = securityService.getBearerToken(request);
-
 
 		try {
 			if (sessionCookie != null) {
@@ -78,10 +77,11 @@ public class SecurityFilter extends OncePerRequestFilter {
 	private User firebaseTokenToUserDto(FirebaseToken decodedToken) {
 		User user = null;
 		if (decodedToken != null) {
-			user = new User();
-			user.setUid(decodedToken.getUid());
-			user.setUsername(decodedToken.getName());
-			user.setEmail(decodedToken.getEmail());
+			user = User.builder()
+					.uid(decodedToken.getUid())
+					.email(decodedToken.getEmail())
+					.name(decodedToken.getName())
+					.build();
 		}
 		return user;
 	}
