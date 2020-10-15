@@ -39,6 +39,7 @@ public class User extends BaseTimeEntity {
     private LocalDate birth;
 
     @Builder.Default
+    @Enumerated(EnumType.STRING)
     private final UserStatus status = UserStatus.A;
 
     @OneToMany(mappedBy = "uid", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)

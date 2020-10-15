@@ -23,10 +23,6 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public List<User> findAll() {
-        return userRepository.findAll();
-    }
-
     public ResponseEntity<UserDto.Res> login() {
 
         User authUser = SecurityService.getUser();

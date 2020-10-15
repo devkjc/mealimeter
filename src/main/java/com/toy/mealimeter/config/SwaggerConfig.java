@@ -33,15 +33,15 @@ public class SwaggerConfig implements WebMvcConfigurer {
                 .build());
         responseMessages.add(new ResponseMessageBuilder()
                 .code(400)
-                .message("Bad Request > Parameter Check")
+                .message("Bad Request -> Parameter Check")
                 .build());
         responseMessages.add(new ResponseMessageBuilder()
                 .code(401)
-                .message("UNAUTHORIZED Error -> 토큰 확인.")
+                .message("UNAUTHORIZED Error -> Token Check.")
                 .build());
         responseMessages.add(new ResponseMessageBuilder()
                 .code(404)
-                .message("Not Found")
+                .message("Not Found -> URL Check.")
                 .build());
         responseMessages.add(new ResponseMessageBuilder()
                 .code(500)
