@@ -1,8 +1,11 @@
 package com.toy.mealimeter.user.controller;
 
-import com.toy.mealimeter.config.security.SecurityService;
 import com.toy.mealimeter.user.dto.UserDto;
 import com.toy.mealimeter.user.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
@@ -15,24 +18,34 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 @Log4j2
 @CrossOrigin
+@Api(tags = {"유저 API V1"})
 public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/hello")
-    public String user() {
-        return SecurityService.getUser().toString();
-    }
-
+    @ApiOperation(
+            value = "JWT Token 로그인",
+            notes = "회원이 없을 시 203 Response 추가정보 입력 후 /join 으로 유도 필요.")
+    @ApiResponses(value = {@ApiResponse(code = 203, message = "추가정보 입력 후 /join 으로 유도 필요.", response = Exception.class)})
     @PostMapping("/login")
     public ResponseEntity<UserDto.Res> login() {
         return userService.login();
     }
 
+    @ApiOperation(
+            value = "회원 가입.")
     @PostMapping("/join")
     public ResponseEntity<UserDto.Res> join(@Valid @RequestBody UserDto.Req req) {
         log.info(req);
         return userService.join(req);
     }
 
+    @ApiOperation(
+            value = "커스텀 토크 만들기 - 테스트"
+    )
+    @GetMapping("/createToken")
+    public ResponseEntity<String> createToken() {
+
+        return userService.createToken();
+    }
 }

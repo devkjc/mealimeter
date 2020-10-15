@@ -29,15 +29,23 @@ public class SwaggerConfig implements WebMvcConfigurer {
         List<ResponseMessage> responseMessages = new ArrayList<>();
         responseMessages.add(new ResponseMessageBuilder()
                 .code(200)
-                .message("OK ~~")
+                .message("OK !")
+                .build());
+        responseMessages.add(new ResponseMessageBuilder()
+                .code(400)
+                .message("Bad Request > Parameter Check")
+                .build());
+        responseMessages.add(new ResponseMessageBuilder()
+                .code(401)
+                .message("UNAUTHORIZED Error -> 토큰 확인.")
                 .build());
         responseMessages.add(new ResponseMessageBuilder()
                 .code(404)
-                .message("Not Found ~~")
+                .message("Not Found")
                 .build());
         responseMessages.add(new ResponseMessageBuilder()
                 .code(500)
-                .message("Internal Server Error ~~")
+                .message("Internal Server Error Oh No ~!")
                 .build());
 
         return new Docket(DocumentationType.SWAGGER_2).apiInfo(swaggerInfo())
@@ -48,6 +56,9 @@ public class SwaggerConfig implements WebMvcConfigurer {
                 .paths(PathSelectors.any())
                 .build()
                 .globalResponseMessage(RequestMethod.GET, responseMessages)
+                .globalResponseMessage(RequestMethod.POST, responseMessages)
+                .globalResponseMessage(RequestMethod.PUT, responseMessages)
+                .globalResponseMessage(RequestMethod.DELETE, responseMessages)
                 .useDefaultResponseMessages(false);
     }
 
