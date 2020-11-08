@@ -15,6 +15,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class UserDto {
 
@@ -48,7 +49,7 @@ public class UserDto {
         private final String nickName;
         private final User.Gender gender;
         private final LocalDate birth;
-        private final List<Area> areas;
+        private final List<AreaDto.Res> areas;
         private final Boolean pushAgree;
         private final String deviceKey;
 
@@ -60,7 +61,7 @@ public class UserDto {
                     .nickName(user.getNickName())
                     .gender(user.getGender())
                     .birth(user.getBirth())
-                    .areas(user.getAreas())
+                    .areas(AreaDto.Res.listOf(user.getAreas()))
                     .pushAgree(user.getPushAgree())
                     .deviceKey(user.getDeviceKey())
                     .build();

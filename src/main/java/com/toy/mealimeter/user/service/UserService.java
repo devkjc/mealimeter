@@ -58,4 +58,14 @@ public class UserService {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+
+    public ResponseEntity<Boolean> deleteUser() {
+
+        User authUser = SecurityService.getUser();
+        String uid = authUser.getUid();
+
+        userRepository.deleteById(uid);
+
+        return ResponseEntity.ok(true);
+    }
 }

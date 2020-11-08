@@ -1,12 +1,18 @@
 package com.toy.mealimeter.user.domain;
 
 import com.toy.mealimeter.common.domain.BaseTimeEntity;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Area extends BaseTimeEntity {
 
     @Id

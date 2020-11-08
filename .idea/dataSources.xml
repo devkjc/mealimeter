@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="mealimeter" uuid="9fd70987-2de4-4081-9441-502446014d85">
+    <data-source source="LOCAL" name="Mealiemeter" uuid="22953633-fb1c-4d3a-ba53-578284fdf392">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://mealimeter.cng3wp3rp9ml.ap-northeast-2.rds.amazonaws.com:3306</jdbc-url>
-      <driver-properties>
-        <property name="serverTimezone" value="Asia/Seoul" />
-      </driver-properties>
+      <jdbc-url>jdbc:mysql://mealimeter.cng3wp3rp9ml.ap-northeast-2.rds.amazonaws.com :3306</jdbc-url>
     </data-source>
   </component>
 </project>

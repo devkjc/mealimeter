@@ -22,6 +22,10 @@ public class SecurityService {
         return userPrincipal;
     }
 
+    public static String getUserId() {
+        return getUser().getUid();
+    }
+
     public Credentials getCredentials() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         return (Credentials) securityContext.getAuthentication().getCredentials();

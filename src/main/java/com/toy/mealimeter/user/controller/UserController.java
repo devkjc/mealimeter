@@ -48,4 +48,10 @@ public class UserController {
 
         return userService.createToken();
     }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<Boolean> deleteUser() {
+
+        return userService.deleteUser();
+    }
 }
