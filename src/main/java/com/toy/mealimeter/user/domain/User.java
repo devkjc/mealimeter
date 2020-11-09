@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,6 +89,13 @@ public class User extends BaseTimeEntity {
 
     public Boolean genderCheck(Gender gender) {
         return gender.equals(this.gender);
+    }
+
+    public int getAge() {
+        LocalDate now = LocalDate.now();
+        int age = now.minusYears(birth.getYear()).getYear(); // (1)
+        if (birth.plusYears(age).isAfter(now)) age = age -1;
+        return age;
     }
 
 }

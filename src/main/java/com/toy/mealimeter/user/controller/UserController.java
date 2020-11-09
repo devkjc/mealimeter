@@ -2,10 +2,7 @@ package com.toy.mealimeter.user.controller;
 
 import com.toy.mealimeter.user.dto.UserDto;
 import com.toy.mealimeter.user.service.UserService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +32,7 @@ public class UserController {
     @ApiOperation(
             value = "회원 가입.")
     @PostMapping("/join")
-    public ResponseEntity<UserDto.Res> join(@Valid @RequestBody UserDto.Req req) {
+    public ResponseEntity<UserDto.Res> join(@Valid @RequestBody @ApiParam(name = "UserDto.Req") UserDto.Req req) {
         log.info(req);
         return userService.join(req);
     }

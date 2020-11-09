@@ -3,23 +3,25 @@ package com.toy.mealimeter.user.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.toy.mealimeter.user.domain.Area;
 import com.toy.mealimeter.user.domain.User;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiParam;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 
-import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.List;
 
 public class UserDto {
 
     @Getter
     @ToString
+    @ApiModel(value = "UserDto.Req")
     public static class Req{
         @Size(min = 2, max = 10)
         @NotBlank(message = "닉네임을 입력해주세요.")
@@ -30,6 +32,8 @@ public class UserDto {
 
         @JsonFormat(pattern = "yyyy-MM-dd")
         @NotNull(message = "생년월일을 입력해주세요.")
+        @ApiParam(value = "yyyy-MM-dd")
+        @ApiModelProperty(value = "format : yyyy-MM-dd")
         private LocalDate birth;
 
         private Boolean pushAgree;
@@ -40,6 +44,7 @@ public class UserDto {
     @Getter
     @Builder
     @ToString
+    @ApiModel(value = "UserDto.Res")
     public static class Res {
 
         private final String uid;
@@ -47,6 +52,7 @@ public class UserDto {
         private final String email;
         private final String nickName;
         private final User.Gender gender;
+        @ApiParam(value = "yyyy-MM-dd")
         private final LocalDate birth;
         private final List<Area> areas;
         private final Boolean pushAgree;
