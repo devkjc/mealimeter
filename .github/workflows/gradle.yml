@@ -1,7 +1,8 @@
 # This workflow will build a Java project with Gradle
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-gradle
 
-name: Mealimeter CI/CD
+# Repo Action 페이지에 나타날 이름
+name: Spring Boot & Gradle CI/CD
 
 # Event Trigger
 # master branch에 push 또는 pull request가 발생할 경우 동작
@@ -41,6 +42,10 @@ jobs:
       - name: Copy Jar
         run: cp ./build/libs/*.jar ./deploy/
 
+      # appspec.yml Copy
+      - name: Copy appspec
+        run: cp appspec.yml ./deploy/
+
       # 압축파일 형태로 전달
       - name: Make zip file
         run: zip -r -qq -j ./springboot-intro-build.zip ./deploy
@@ -48,10 +53,23 @@ jobs:
       # S3 Bucket으로 copy
       - name: Deliver to AWS S3
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_ACCESS_KEY_ID: $
+          AWS_SECRET_ACCESS_KEY: $
         run: |
           aws s3 cp \
           --region ap-northeast-2 \
           --acl private \
           ./springboot-intro-build.zip s3://mealimeter/
+
+      # Deploy
+      - name: Deploy
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          aws deploy create-deployment \
+          --application-name springboot-intro \
+          --deployment-group-name springboot-intro-deploy-group \
+          --file-exists-behavior OVERWRITE \
+          --s3-location bucket=mealimeter,bundleType=zip,key=springboot-intro-build.zip \
+          --region ap-northeast-2
