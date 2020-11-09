@@ -38,17 +38,21 @@ public class UserController {
     }
 
     @ApiOperation(
+            value = "닉네임 중복 검사",
+            notes = "사용 가능 시 true 중복 시 false"
+    )
+    @GetMapping("/nickName/{nickName}")
+    public ResponseEntity<Boolean> nickNameDuplication(@PathVariable String nickName) {
+
+        return userService.nickNameDuplication(nickName);
+    }
+
+    @ApiOperation(
             value = "커스텀 토크 만들기 - 테스트"
     )
     @GetMapping("/createToken")
     public ResponseEntity<String> createToken() {
 
         return userService.createToken();
-    }
-
-    @DeleteMapping("/delete")
-    public ResponseEntity<Boolean> deleteUser() {
-
-        return userService.deleteUser();
     }
 }

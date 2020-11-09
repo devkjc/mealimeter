@@ -31,8 +31,8 @@ public class UserDto {
         @NotNull(message = "성별을 입력해주세요.")
         private User.Gender gender;
 
-        @JsonFormat(pattern = "yyyy-MM-dd")
         @NotNull(message = "생년월일을 입력해주세요.")
+        @JsonFormat(pattern = "yyyy-MM-dd")
         @ApiParam(value = "yyyy-MM-dd")
         @ApiModelProperty(value = "format : yyyy-MM-dd")
         private LocalDate birth;
