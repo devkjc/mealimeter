@@ -13,14 +13,3 @@ cache:
     - '$HOME/.gradle'
 
 script: "./gradlew clean build"
-
-before_deploy:
-  - zip -r mealimeter *
-  - mkdir -p deploy
-  - mv mealimeter.zip deploy/mealimeter.zip
-
-# CI 실행 완료시 메일로 알람
-notifications:
-  email:
-    recipients:
-      - kjc3590@naver.com
