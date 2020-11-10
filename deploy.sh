@@ -1,6 +1,6 @@
 #!/bin/bash
 
-REPOSITORY=/home/ubuntu/app/travis
+REPOSITORY=/home/ubuntu/app/build
 
 echo "> 현재 구동중인 애플리케이션 pid 확인"
 
