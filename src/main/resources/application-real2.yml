@@ -1,3 +1,9 @@
+logging :
+  file:
+    path: /usr/local/mealimeter/logs
+  level:
+    root : INFO
+
 spring:
   datasource:
     url: jdbc:mysql://mealimeter.cng3wp3rp9ml.ap-northeast-2.rds.amazonaws.com:3306/mealimeter?serverTimezone=Asia/Seoul&useSSL=false&useUnicode=yes&characterEncoding=UTF-8&autoReconnect=true
@@ -12,9 +18,8 @@ spring:
       hibernate.format_sql: true
     hibernate:
       ddl-auto: update
-      default_batch_fetch_size: 1000
   profiles:
-    active: local
+    active: real2
 
 security:
   firebase-props:
