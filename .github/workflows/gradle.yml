@@ -55,3 +55,16 @@ jobs:
           --region ap-northeast-2 \
           --acl private \
           ./mealimeter.zip s3://mealimeter/deploy/
+
+      # Deploy
+      - name: Deploy
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          aws deploy create-deployment \
+          --application-name mealimeter \
+          --deployment-group-name mealimeter-master \
+          --file-exists-behavior OVERWRITE \
+          --s3-location bucket=mealimeter/deploy/,bundleType=zip,key=mealimeter.zip \
+          --region ap-northeast-2
