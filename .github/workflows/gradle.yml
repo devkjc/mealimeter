@@ -54,4 +54,4 @@ jobs:
           aws s3 cp \
           --region ap-northeast-2 \
           --acl private \
-          ./mealimeter.zip s3://mealimeter/deploy
+          ./mealimeter.zip s3://mealimeter/deploy/
