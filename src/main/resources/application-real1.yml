@@ -67,12 +67,5 @@ security:
   exposed-headers:
     - X-Xsrf-Token
 
-logging:
-  level:
-#    org:
-#      springframework:
-#        security: DEBUG
-    root: INFO
-
 server:
   port: 3590
