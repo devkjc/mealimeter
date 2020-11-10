@@ -66,5 +66,5 @@ jobs:
           --application-name mealimeter \
           --deployment-group-name mealimeter-master \
           --file-exists-behavior OVERWRITE \
-          --s3-location bucket=mealimeter/deploy,bundleType=zip,key=mealimeter.zip \
+          --s3-location bucket=mealimeter,bundleType=zip,key=/deploy/mealimeter.zip \
           --region ap-northeast-2
