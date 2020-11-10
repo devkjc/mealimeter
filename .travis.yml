@@ -19,3 +19,16 @@ notifications:
   email:
     recipients:
       - kjc3590@naver.com
+
+deploy:
+  - provider: s3
+    access_key_id: AKIA2BOGNJVV67J7A26W # Travis repo settings에 설정된 값
+    secret_access_key: PI9njNQtXimVYsl+MRF8HT9TNwkSSS11SGJSq7dN # Travis repo settings에 설정된 값
+    bucket: mealimeter # 6-3-3에서 생성한 S3 버킷
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: public_read
+    wait-until-deployed: true
+    on:
+      repo: /devkjc/mealimeter #Github 주소
+      branch: master
