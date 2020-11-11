@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.xml.ws.ServiceMode;
@@ -24,6 +25,7 @@ public class AreaService {
         return ResponseEntity.ok(areaRepository.findByUid(uid));
     }
 
+    @Transactional
     public ResponseEntity<?> addArea(AreaDto.Req req) {
 
         String uid = SecurityService.getUserId();
@@ -34,6 +36,7 @@ public class AreaService {
         return ResponseEntity.ok(AreaDto.Res.of(areaRepository.save(req.toEntity())));
     }
 
+    @Transactional
     public ResponseEntity<?> deleteArea(long id) {
         areaRepository.deleteById(id);
         return ResponseEntity.ok("삭제가 완료되었습니다.");

@@ -1,7 +1,6 @@
 package com.toy.mealimeter.user.controller;
 
 import com.toy.mealimeter.user.dto.AreaDto;
-import com.toy.mealimeter.user.dto.UserDto;
 import com.toy.mealimeter.user.service.AreaService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -36,5 +35,13 @@ public class AreaController {
     @PostMapping("/")
     public ResponseEntity<?> addArea(AreaDto.Req req) {
         return areaService.addArea(req);
+    }
+
+    @ApiOperation(
+            value = "지역 삭제"
+    )
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteArea(@PathVariable long id) {
+        return areaService.deleteArea(id);
     }
 }
