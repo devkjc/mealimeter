@@ -65,14 +65,16 @@ jobs:
           ./mealimeter.zip s3://mealimeter/deploy/
 
       # Deploy
+      # application-name =  CodeDeploy Name
+      # deployment-group-name =  CodeDeploy Group Name
       - name: Deploy
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
           aws deploy create-deployment \
-          --application-name mealimeter \
-          --deployment-group-name mealimeter-master \
+          --application-name mealimeter-codedeploy \
+          --deployment-group-name mealimeter-codedeploy-group \
           --file-exists-behavior OVERWRITE \
           --s3-location bucket=mealimeter,bundleType=zip,key=deploy/mealimeter.zip \
           --region ap-northeast-2
