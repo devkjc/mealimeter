@@ -15,7 +15,7 @@ public class CommonController {
     )
     @GetMapping("/hello")
     public String user() {
-        return "Hello Mealimeter Oh Yeah ~ !";
+        return "Hello Mealimeter !";
     }
 
 }

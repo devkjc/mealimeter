@@ -1,5 +1,6 @@
 package com.toy.mealimeter.common.controller;
 
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +11,9 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
+@Api(hidden = true)
 public class ProfileController {
+
     private final Environment env;
 
     @GetMapping("/profile")
