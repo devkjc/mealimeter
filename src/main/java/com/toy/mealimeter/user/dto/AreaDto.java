@@ -1,6 +1,7 @@
 package com.toy.mealimeter.user.dto;
 
 import com.toy.mealimeter.user.domain.Area;
+import io.swagger.annotations.ApiModel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
@@ -14,6 +15,7 @@ public class AreaDto {
 
     @Getter
     @ToString
+    @ApiModel(value = "AreaDto.Req")
     public static class Req{
 
         @NotBlank(message = "지역을 입력해주세요")
@@ -34,6 +36,7 @@ public class AreaDto {
     @Getter
     @Builder
     @ToString
+    @ApiModel(value = "AreaDto.Res")
     public static class Res {
 
         private final long id;

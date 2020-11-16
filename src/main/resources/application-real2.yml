@@ -38,6 +38,7 @@ security:
   allowed-origins:
     - https://${CORS_DOMAIN}
     - http://localhost:3000
+    - http://localhost:8081
   allowed-methods:
     - GET
     - POST

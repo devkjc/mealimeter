@@ -22,7 +22,7 @@ public class AreaController {
     private final AreaService areaService;
 
     @ApiOperation(value = "지역 조회")
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<List<AreaDto.Res>> getArea() {
 
         return areaService.getArea();
@@ -32,7 +32,7 @@ public class AreaController {
             value = "지역 추가",
             notes = "최대 개수 2개 제한"
     )
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<?> addArea(AreaDto.Req req) {
         return areaService.addArea(req);
     }
