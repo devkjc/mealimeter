@@ -26,7 +26,7 @@ public class UserController {
     @ApiResponses(value = {@ApiResponse(code = 203, message = "추가정보 입력 후 /join 으로 유도 필요.", response = Exception.class)})
     @PostMapping("/login")
     public ResponseEntity<UserDto.Res> login() {
-        return userService.login();
+        return ResponseEntity.ok(userService.login());
     }
 
     @ApiOperation(
@@ -34,7 +34,7 @@ public class UserController {
     @PostMapping("/join")
     public ResponseEntity<UserDto.Res> join(@Valid @RequestBody @ApiParam(name = "UserDto.Req") UserDto.Req req) {
         log.info(req);
-        return userService.join(req);
+        return ResponseEntity.ok(userService.join(req));
     }
 
     @ApiOperation(
@@ -44,15 +44,6 @@ public class UserController {
     @GetMapping("/nickName/{nickName}")
     public ResponseEntity<Boolean> nickNameDuplication(@PathVariable String nickName) {
 
-        return userService.nickNameDuplication(nickName);
-    }
-
-    @ApiOperation(
-            value = "커스텀 토크 만들기 - 테스트"
-    )
-    @GetMapping("/createToken")
-    public ResponseEntity<String> createToken() {
-
-        return userService.createToken();
+        return ResponseEntity.ok(userService.nickNameDuplication(nickName));
     }
 }

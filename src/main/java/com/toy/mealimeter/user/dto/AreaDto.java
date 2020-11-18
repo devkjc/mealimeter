@@ -24,10 +24,11 @@ public class AreaDto {
         @NotNull(message = "지역을 입력해주세요")
         private String guGun;
 
-        public Area toEntity() {
+        public Area toEntity(String uid) {
             return Area.builder()
                     .city(city)
                     .guGun(guGun)
+                    .uid(uid)
                     .build();
         }
 
@@ -40,7 +41,6 @@ public class AreaDto {
     public static class Res {
 
         private final long id;
-        private final String uid;
         private final String city;
         private final String guGun;
         private final Boolean mainStatus;
@@ -52,7 +52,6 @@ public class AreaDto {
         public static AreaDto.Res of(Area area) {
             return Res.builder()
                     .id(area.getId())
-                    .uid(area.getUid())
                     .city(area.getCity())
                     .guGun(area.getGuGun())
                     .mainStatus(area.getMainStatus())

@@ -8,8 +8,9 @@ import java.util.List;
 
 public interface AreaRepository extends JpaRepository<Area, Long> {
 
-    List<AreaDto.Res> findByUid(String uid);
+    List<Area> findByUid(String uid);
 
     int countByUid(String uid);
+
 
 }

@@ -28,6 +28,12 @@ public class Area extends BaseTimeEntity {
     @Column(nullable = false, length = 20)
     private String guGun;
 
-    private Boolean mainStatus;
+    @Builder.Default
+    private Boolean mainStatus = true;
+
+    public Area stateChange(Boolean state) {
+        this.mainStatus = state;
+        return this;
+    }
 
 }

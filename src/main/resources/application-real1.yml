@@ -1,8 +1,8 @@
-logging :
+logging:
   file:
     path: /usr/local/mealimeter/logs
   level:
-    root : INFO
+    root: INFO
 
 spring:
   datasource:
@@ -35,10 +35,6 @@ security:
     domain: ${CORS_DOMAIN}
     path: /
   allow-credentials: true
-  allowed-origins:
-    - https://${CORS_DOMAIN}
-    - http://localhost:3000
-    - http://localhost:8081
   allowed-methods:
     - GET
     - POST

@@ -19,6 +19,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.sql.Timestamp;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -53,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(restSecProps.getAllowedOrigins());
+        configuration.setAllowedOrigins(Arrays.asList("*"));
         configuration.setAllowedMethods(restSecProps.getAllowedMethods());
         configuration.setAllowedHeaders(restSecProps.getAllowedHeaders());
         configuration.setAllowCredentials(restSecProps.isAllowCredentials());
