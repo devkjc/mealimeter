@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Size;
 
 @RestController
 @RequestMapping("/api/v1/user")
@@ -43,7 +44,10 @@ public class UserController {
             notes = "사용 가능 시 true 중복 시 false"
     )
     @PostMapping("/nickName")
-    public ResponseEntity<Boolean> nickNameDuplication(@RequestBody String nickName) {
+    public ResponseEntity<Boolean> nickNameDuplication(
+            @Size(min = 2, max = 10, message = "닉네임 글자 수는 2글자 이상 10글자 이하 입니다.")
+            @RequestBody String nickName
+    ) {
 
         return ResponseEntity.ok(userService.nickNameDuplication(nickName));
     }

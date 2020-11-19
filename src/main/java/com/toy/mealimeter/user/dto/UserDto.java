@@ -1,23 +1,19 @@
 package com.toy.mealimeter.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.toy.mealimeter.user.domain.Area;
 import com.toy.mealimeter.user.domain.User;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiParam;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class UserDto {
 
