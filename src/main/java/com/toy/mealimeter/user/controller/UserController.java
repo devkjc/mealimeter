@@ -42,7 +42,7 @@ public class UserController {
             notes = "사용 가능 시 true 중복 시 false"
     )
     @PostMapping("/nickName")
-    public ResponseEntity<Boolean> nickNameDuplication(String nickName) {
+    public ResponseEntity<Boolean> nickNameDuplication(@RequestBody String nickName) {
 
         return ResponseEntity.ok(userService.nickNameDuplication(nickName));
     }
