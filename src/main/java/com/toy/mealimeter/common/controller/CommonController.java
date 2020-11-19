@@ -5,6 +5,11 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
+
 @RestController
 @Api(tags = {"공통 API"})
 public class CommonController {
@@ -15,6 +20,7 @@ public class CommonController {
     )
     @GetMapping("/hello")
     public String user() {
+
         return "Hello Mealimeter !";
     }
 

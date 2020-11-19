@@ -46,7 +46,8 @@ public class User extends BaseTimeEntity {
     @OneToMany(mappedBy = "uid", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     private final List<Area> areas = new ArrayList<>();
 
-    private Boolean pushAgree;
+    @Builder.Default
+    private Boolean pushAgree = false;
 
     @Column
     private String deviceKey;

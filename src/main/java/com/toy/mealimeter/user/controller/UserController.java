@@ -1,5 +1,6 @@
 package com.toy.mealimeter.user.controller;
 
+import com.toy.mealimeter.config.security.SecurityService;
 import com.toy.mealimeter.user.dto.UserDto;
 import com.toy.mealimeter.user.service.UserService;
 import io.swagger.annotations.*;
@@ -45,5 +46,13 @@ public class UserController {
     public ResponseEntity<Boolean> nickNameDuplication(@RequestBody String nickName) {
 
         return ResponseEntity.ok(userService.nickNameDuplication(nickName));
+    }
+
+    @DeleteMapping
+    private ResponseEntity<?> deleteMember() {
+        String uid = SecurityService.getUserId();
+        userService.deleteMember(uid);
+        return ResponseEntity.ok("Delete Complete");
+
     }
 }

@@ -4,6 +4,8 @@ spring:
     username: admin
     password: fine0042*
     driver-class-name: com.mysql.cj.jdbc.Driver
+    tomcat:
+      init-s-q-l: select 1
   jpa:
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     database: mysql

@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 @EnableJpaAuditing
 public class MealimeterApplication {
 
-    public static void main(String[] args) throws FirebaseAuthException {
+    public static void main(String[] args) {
         SpringApplication.run(MealimeterApplication.class, args);
     }
 

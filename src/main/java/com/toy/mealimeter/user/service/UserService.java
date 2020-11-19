@@ -33,6 +33,10 @@ public class UserService {
         return UserDto.Res.of(user);
     }
 
+    public void deleteMember(String uid) {
+        userRepository.deleteById(uid);
+    }
+
     public static User getAuthUser() {
         return SecurityService.getUser();
     }
