@@ -22,7 +22,6 @@ public class UserService {
         return UserDto.Res.of(user);
     }
 
-
     public UserDto.Res join(UserDto.Req req) {
 
         User authUser = getAuthUser();

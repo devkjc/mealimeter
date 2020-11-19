@@ -10,6 +10,7 @@ import io.swagger.annotations.ApiParam;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -24,7 +25,7 @@ public class UserDto {
     @ToString
     @ApiModel(value = "UserDto.Req")
     public static class Req{
-        @Size(min = 2, max = 10)
+        @Size(min = 2, max = 10, message = "닉네임 글자 수는 2글자 이상 10글자 이하 입니다.")
         @NotBlank(message = "닉네임을 입력해주세요.")
         private String nickName;
 
@@ -33,7 +34,6 @@ public class UserDto {
 
         @NotNull(message = "생년월일을 입력해주세요.")
         @JsonFormat(pattern = "yyyy-MM-dd")
-        @ApiParam(value = "yyyy-MM-dd")
         @ApiModelProperty(value = "format : yyyy-MM-dd")
         private LocalDate birth;
 
