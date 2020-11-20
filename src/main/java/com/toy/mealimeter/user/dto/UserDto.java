@@ -11,6 +11,7 @@ import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.List;
@@ -21,14 +22,14 @@ public class UserDto {
     @ToString
     @ApiModel(value = "UserDto.Req")
     public static class Req{
-        @Size(min = 2, max = 10, message = "닉네임 글자 수는 2글자 이상 10글자 이하 입니다.")
-        @NotBlank(message = "닉네임을 입력해주세요.")
+        @Size(min = 2, max = 10, message = "글자 수는 2글자 이상 10글자 이하 입니다.")
+        @NotBlank(message = "필수값입니다.")
         private String nickName;
 
-        @NotNull(message = "성별을 입력해주세요.")
+        @NotNull(message = "필수값입니다.")
         private User.Gender gender;
 
-        @NotNull(message = "생년월일을 입력해주세요.")
+        @NotNull(message = "필수값입니다.")
         @JsonFormat(pattern = "yyyy-MM-dd")
         @ApiModelProperty(value = "format : yyyy-MM-dd")
         private LocalDate birth;

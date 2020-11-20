@@ -45,7 +45,6 @@ public class UserController {
     )
     @PostMapping("/nickName")
     public ResponseEntity<Boolean> nickNameDuplication(
-            @Size(min = 2, max = 10, message = "닉네임 글자 수는 2글자 이상 10글자 이하 입니다.")
             @RequestBody String nickName
     ) {
 
