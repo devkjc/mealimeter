@@ -18,10 +18,10 @@ public class AreaDto {
     @ApiModel(value = "AreaDto.Req")
     public static class Req{
 
-        @NotBlank(message = "지역을 입력해주세요")
+        @NotBlank(message = "필수값 입니다.")
         private String city;
 
-        @NotNull(message = "지역을 입력해주세요")
+        @NotBlank(message = "필수값 입니다.")
         private String guGun;
 
         public Area toEntity(String uid) {

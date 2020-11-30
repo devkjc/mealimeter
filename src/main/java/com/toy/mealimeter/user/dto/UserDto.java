@@ -1,6 +1,7 @@
 package com.toy.mealimeter.user.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.toy.mealimeter.user.domain.Gender;
 import com.toy.mealimeter.user.domain.User;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -27,7 +28,7 @@ public class UserDto {
         private String nickName;
 
         @NotNull(message = "필수값입니다.")
-        private User.Gender gender;
+        private Gender gender;
 
         @NotNull(message = "필수값입니다.")
         @JsonFormat(pattern = "yyyy-MM-dd")
@@ -49,7 +50,7 @@ public class UserDto {
         private final String name;
         private final String email;
         private final String nickName;
-        private final User.Gender gender;
+        private final Gender gender;
         @ApiParam(value = "yyyy-MM-dd")
         private final LocalDate birth;
         private final List<AreaDto.Res> areas;

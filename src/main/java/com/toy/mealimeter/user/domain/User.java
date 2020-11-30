@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +46,9 @@ public class User extends BaseTimeEntity {
     private final List<Area> areas = new ArrayList<>();
 
     @Builder.Default
+    private final int popularity = 0;
+
+    @Builder.Default
     private Boolean pushAgree = false;
 
     @Column
@@ -64,17 +66,13 @@ public class User extends BaseTimeEntity {
         }
     }
 
-    @Getter
-    public enum Gender{
-        M("남성"), // 남성
-        F("여성"); // 여성
+    public User joinUser(UserDto.Req req) {
 
-        private final String value;
+        this.nickName = req.getNickName();
+        this.gender = req.getGender();
+        this.birth = req.getBirth();
 
-        Gender(String value) {
-            this.value = value;
-        }
-
+        return this;
     }
 
     public User updateUser(UserDto.Req req) {

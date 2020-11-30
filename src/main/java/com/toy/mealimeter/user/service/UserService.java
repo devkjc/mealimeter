@@ -25,7 +25,7 @@ public class UserService {
     public UserDto.Res join(UserDto.Req req) {
 
         User authUser = getAuthUser();
-        authUser.updateUser(req);
+        authUser.joinUser(req);
 
         User user = userRepository.save(authUser);
 
