@@ -29,7 +29,6 @@ public class ApplyUserDto {
     public static class Res {
 
         private final long id;
-//        private final MeetDto.Res meet;
         private final UserDto.Res user;
         private final ApplyUser.ApplyStatus applyStatus;
 
