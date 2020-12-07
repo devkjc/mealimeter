@@ -12,6 +12,7 @@ import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class MeetDto {
@@ -32,8 +33,8 @@ public class MeetDto {
 
         private int maxNumber;
 
-        private LocalDate startDate;
-        private LocalDate endDate;
+        private LocalDateTime startDate;
+        private LocalDateTime endDate;
 
         private String restaurantName;
         private String restaurantAddress;

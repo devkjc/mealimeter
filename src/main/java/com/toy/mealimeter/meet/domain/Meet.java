@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -45,8 +46,8 @@ public class Meet {
     @JoinColumn(name = "meet_master_uid_fk")
     private User meetMaster;
 
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
     private String restaurantName;
     private String restaurantAddress;
