@@ -10,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,6 +25,7 @@ public class MeetController {
     private final MeetService meetService;
 
     @ApiOperation(value = "방 생성.")
+    @PostMapping
     public ResponseEntity<MeetDto.Res> createMeet(MeetDto.Req req) {
         User user = SecurityService.getUser();
         return ResponseEntity.ok(meetService.createMeet(user, req));
