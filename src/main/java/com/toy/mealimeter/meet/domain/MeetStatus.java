@@ -6,6 +6,11 @@ public enum MeetStatus {
     End,
     Cancel,
     Shortage,
-    Delete
+    Delete;
+
+    public static MeetStatus statusCheck(Meet meet) {
+
+        return Recruiting;
+    }
 
 }

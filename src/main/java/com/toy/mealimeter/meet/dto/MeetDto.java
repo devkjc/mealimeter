@@ -80,8 +80,8 @@ public class MeetDto {
 
         private final UserDto.Res meetMaster;
 
-        private final LocalDate startDate;
-        private final LocalDate endDate;
+        private final LocalDateTime startDate;
+        private final LocalDateTime endDate;
 
         private final String restaurantName;
         private final String restaurantAddress;
@@ -96,7 +96,47 @@ public class MeetDto {
                     .maxAge(meet.getMaxAge())
                     .maxNumber(meet.getMaxNumber())
                     .applyUserList(ApplyUserDto.Res.listOf(meet.getApplyUserList()))
+                    .enterUserList(EnterUserDto.Res.listOf(meet.getEnterUserList()))
+                    .build();
+        }
 
+    }
+
+    @Getter
+    @Builder
+    @ToString
+    @ApiModel(value = "MeetDto.SimpleRes")
+    public static class SimpleRes {
+
+        private final long id;
+
+        private final String title;
+
+        private final MeetStatus meetStatus;
+
+        private final Gender gender;
+
+        private final int minAge;
+        private final int maxAge;
+
+        private final int maxNumber;
+        private final int currentEnterNumber;
+
+        private final UserDto.Res meetMaster;
+
+        private final String restaurantName;
+        private final String restaurantAddress;
+
+        public static MeetDto.SimpleRes of(Meet meet) {
+            return SimpleRes.builder()
+                    .id(meet.getId())
+                    .title(meet.getTitle())
+                    .meetStatus(meet.getMeetStatus())
+                    .gender(meet.getGender())
+                    .minAge(meet.getMinAge())
+                    .maxAge(meet.getMaxAge())
+                    .maxNumber(meet.getMaxNumber())
+                    .currentEnterNumber(meet.getEnterUserList().size())
                     .build();
         }
 
