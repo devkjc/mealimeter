@@ -7,6 +7,7 @@ import com.toy.mealimeter.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 @Service
@@ -22,14 +23,18 @@ public class UserService {
         return UserDto.Res.of(user);
     }
 
+    @Transactional
     public UserDto.Res join(UserDto.Req req) {
 
         User authUser = getAuthUser();
         authUser.joinUser(req);
 
-        User user = userRepository.save(authUser);
-
-        return UserDto.Res.of(user);
+        if (nickNameDuplication(req.getNickName())) {
+            User user = userRepository.save(authUser);
+            return UserDto.Res.of(user);
+        }else{
+            throw new IllegalArgumentException("닉네임 중복을 다시 확인해주세요.");
+        }
     }
 
     public void deleteMember(String uid) {

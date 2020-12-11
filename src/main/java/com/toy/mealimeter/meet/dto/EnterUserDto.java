@@ -19,17 +19,21 @@ public class EnterUserDto {
     @ApiModel(value = "EnterUserDto.Res")
     public static class Res {
 
-        private long id;
-        private UserDto.Res user;
+        private final long id;
+        private final UserDto.SimpleRes user;
 
         public static List<EnterUserDto.Res> listOf(List<EnterUser> areas) {
-            return areas.stream().map(EnterUserDto.Res::of).collect(Collectors.toList());
+            if (areas == null || areas.isEmpty()) {
+                return null;
+            }else{
+                return areas.stream().map(EnterUserDto.Res::of).collect(Collectors.toList());
+            }
         }
 
         public static EnterUserDto.Res of(EnterUser enterUser) {
             return Res.builder()
                     .id(enterUser.getId())
-                    .user(UserDto.Res.of(enterUser.getUser()))
+                    .user(UserDto.SimpleRes.of(enterUser.getUser()))
                     .build();
         }
 

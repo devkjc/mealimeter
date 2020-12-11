@@ -1,11 +1,10 @@
 package com.toy.mealimeter.user.domain;
 
 import com.toy.mealimeter.common.domain.BaseTimeEntity;
+import com.toy.mealimeter.meet.domain.Meet;
+import com.toy.mealimeter.meet.domain.MeetArea;
 import com.toy.mealimeter.user.dto.UserDto;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -17,6 +16,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class User extends BaseTimeEntity {
 
     @Id
@@ -87,7 +87,7 @@ public class User extends BaseTimeEntity {
     }
 
     public Boolean genderCheck(Gender gender) {
-        return gender.equals(this.gender);
+        return gender.equals(Gender.N) || gender.equals(this.gender);
     }
 
     public int getAge() {
@@ -95,6 +95,18 @@ public class User extends BaseTimeEntity {
         int age = now.minusYears(birth.getYear()).getYear(); // (1)
         if (birth.plusYears(age).isAfter(now)) age = age -1;
         return age;
+    }
+
+    public MeetArea getActiveArea() {
+        return this.areas.stream().filter(Area::getMainStatus).findFirst().orElseThrow(()-> new IllegalArgumentException("지역을 설정해주세요.")).meetArea();
+    }
+
+    public Boolean ageCheck(int minAge, int maxAge) {
+        return minAge <= getAge() && getAge() <= maxAge;
+    }
+
+    public Boolean meetCheck(Meet meet) {
+        return genderCheck(meet.getGender()) && ageCheck(meet.getMinAge(), meet.getMaxAge());
     }
 
 }

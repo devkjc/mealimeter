@@ -1,6 +1,7 @@
 package com.toy.mealimeter.user.domain;
 
 import com.toy.mealimeter.common.domain.BaseTimeEntity;
+import com.toy.mealimeter.meet.domain.MeetArea;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -34,6 +35,13 @@ public class Area extends BaseTimeEntity {
     public Area stateChange(Boolean state) {
         this.mainStatus = state;
         return this;
+    }
+
+    public MeetArea meetArea() {
+        return MeetArea.builder()
+                .city(this.city)
+                .gugun(this.guGun)
+                .build();
     }
 
 }

@@ -1,5 +1,6 @@
 package com.toy.mealimeter.meet.dto;
 
+import com.toy.mealimeter.meet.domain.EnterUser;
 import com.toy.mealimeter.meet.domain.Meet;
 import com.toy.mealimeter.meet.domain.MeetStatus;
 import com.toy.mealimeter.user.domain.Gender;
@@ -11,9 +12,11 @@ import lombok.Getter;
 import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MeetDto {
 
@@ -25,7 +28,7 @@ public class MeetDto {
         @NotBlank(message = "필수값입니다.")
         private String title;
 
-        @NotBlank(message = "필수값입니다.")
+        @NotNull(message = "필수값입니다.")
         private Gender gender;
 
         private int minAge;
@@ -33,8 +36,7 @@ public class MeetDto {
 
         private int maxNumber;
 
-        private LocalDateTime startDate;
-        private LocalDateTime endDate;
+        private LocalDateTime meetDate;
 
         private String restaurantName;
         private String restaurantAddress;
@@ -46,9 +48,9 @@ public class MeetDto {
                     .minAge(minAge)
                     .maxAge(maxAge)
                     .meetMaster(meetMaster)
+                    .meetArea(meetMaster.getActiveArea())
                     .maxNumber(maxNumber)
-                    .startDate(startDate)
-                    .endDate(endDate)
+                    .meetDate(meetDate)
                     .restaurantAddress(restaurantAddress)
                     .restaurantName(restaurantName)
                     .build();
@@ -80,13 +82,13 @@ public class MeetDto {
 
         private final UserDto.Res meetMaster;
 
-        private final LocalDateTime startDate;
-        private final LocalDateTime endDate;
+        private final LocalDateTime meetDate;
 
         private final String restaurantName;
         private final String restaurantAddress;
 
         public static MeetDto.Res of(Meet meet) {
+
             return Res.builder()
                     .id(meet.getId())
                     .title(meet.getTitle())
@@ -95,6 +97,8 @@ public class MeetDto {
                     .minAge(meet.getMinAge())
                     .maxAge(meet.getMaxAge())
                     .maxNumber(meet.getMaxNumber())
+                    .meetDate(meet.getMeetDate())
+                    .meetMaster(UserDto.Res.of(meet.getMeetMaster()))
                     .applyUserList(ApplyUserDto.Res.listOf(meet.getApplyUserList()))
                     .enterUserList(EnterUserDto.Res.listOf(meet.getEnterUserList()))
                     .build();
@@ -122,10 +126,20 @@ public class MeetDto {
         private final int maxNumber;
         private final int currentEnterNumber;
 
-        private final UserDto.Res meetMaster;
+        private final LocalDateTime meetDate;
+
+        private final UserDto.SimpleRes meetMaster;
 
         private final String restaurantName;
         private final String restaurantAddress;
+
+        public static List<MeetDto.SimpleRes> listOf(List<Meet> list) {
+            if (list == null || list.isEmpty()) {
+                return null;
+            }else{
+                return list.stream().map(MeetDto.SimpleRes::of).collect(Collectors.toList());
+            }
+        }
 
         public static MeetDto.SimpleRes of(Meet meet) {
             return SimpleRes.builder()
@@ -136,7 +150,10 @@ public class MeetDto {
                     .minAge(meet.getMinAge())
                     .maxAge(meet.getMaxAge())
                     .maxNumber(meet.getMaxNumber())
+                    .meetDate(meet.getMeetDate())
+                    .meetMaster(UserDto.SimpleRes.of(meet.getMeetMaster()))
                     .currentEnterNumber(meet.getEnterUserList().size())
+                    .restaurantName(meet.getRestaurantName())
                     .build();
         }
 

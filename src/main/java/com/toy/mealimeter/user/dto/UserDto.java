@@ -72,4 +72,26 @@ public class UserDto {
         }
 
     }
+
+    @Getter
+    @Builder
+    @ToString
+    @ApiModel(value = "UserDto.SimpleRes")
+    public static class SimpleRes {
+
+        private final String uid;
+        private final String nickName;
+        private final Gender gender;
+        private final LocalDate birth;
+
+        public static SimpleRes of(User user) {
+            return SimpleRes.builder()
+                    .uid(user.getUid())
+                    .nickName(user.getNickName())
+                    .gender(user.getGender())
+                    .birth(user.getBirth())
+                    .build();
+        }
+
+    }
 }

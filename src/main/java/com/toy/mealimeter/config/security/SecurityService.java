@@ -2,6 +2,7 @@ package com.toy.mealimeter.config.security;
 
 import com.toy.mealimeter.config.security.models.Credentials;
 import com.toy.mealimeter.user.domain.User;
+import com.toy.mealimeter.user.repository.UserRepository;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;

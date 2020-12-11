@@ -29,18 +29,22 @@ public class ApplyUserDto {
     public static class Res {
 
         private final long id;
-        private final UserDto.Res user;
+        private final UserDto.SimpleRes user;
         private final ApplyUser.ApplyStatus applyStatus;
 
         public static List<ApplyUserDto.Res> listOf(List<ApplyUser> areas) {
-            return areas.stream().map(ApplyUserDto.Res::of).collect(Collectors.toList());
+            if (areas == null || areas.isEmpty()) {
+                return null;
+            }else{
+                return areas.stream().map(ApplyUserDto.Res::of).collect(Collectors.toList());
+            }
         }
 
         public static ApplyUserDto.Res of(ApplyUser applyUser) {
             return Res.builder()
                     .id(applyUser.getId())
 //                    .meet(MeetDto.Res.of(applyUser.getMeet()))
-                    .user(UserDto.Res.of(applyUser.getUser()))
+                    .user(UserDto.SimpleRes.of(applyUser.getUser()))
                     .applyStatus(applyUser.getApplyStatus())
 
                     .build();
