@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -33,7 +34,8 @@ public class MeetService {
     }
 
     public List<MeetDto.SimpleRes> getMeetList(User user, Pageable pageable) {
-        return MeetDto.SimpleRes.listOf(meetRepository.findByMeetArea(user.getActiveArea(), pageable));
+        List<Meet> meetList = meetRepository.findByMeetArea(user.getActiveArea(), pageable).stream().filter(user::meetCheck).collect(Collectors.toList());
+        return MeetDto.SimpleRes.listOf(meetList);
     }
 
     @Transactional

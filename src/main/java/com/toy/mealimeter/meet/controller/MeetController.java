@@ -40,12 +40,32 @@ public class MeetController {
     @ApiOperation(value = "방 조회.")
     @GetMapping
     public ResponseEntity<List<MeetDto.SimpleRes>> getMeetList(@RequestParam(defaultValue = "20") int pageSize,
-                                                               @RequestParam(defaultValue = "0") int pageNum,
+                                                               @RequestParam(defaultValue = "1") int pageNum,
                                                                @RequestParam(value = "sort", defaultValue= "meetDate", required = false) String sort,
                                                                @RequestParam(value = "sortDir", defaultValue= "desc", required = false) String sortDir) {
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize, Sort.Direction.fromString(sortDir), sort);
         User user = userRepository.findByUid(SecurityService.getUserId());
 
         return ResponseEntity.ok(meetService.getMeetList(user, pageable));
+    }
+
+    @ApiOperation(value = "방 입장 신청")
+    @PostMapping("/apply/{meetId}")
+    public ResponseEntity<String> applyUser(@PathVariable long meetId) {
+
+        User user = userRepository.findByUid(SecurityService.getUserId());
+        meetService.addApplyList(user, meetId);
+
+        return ResponseEntity.ok("신청이 완료되었습니다.");
+    }
+
+    @ApiOperation(value = "방 입장 승인")
+    @PostMapping("/entger/{meetId}")
+    public ResponseEntity<String> enterUser(@PathVariable long meetId) {
+
+        User user = userRepository.findByUid(SecurityService.getUserId());
+        meetService.addEnterList(user, meetId);
+
+        return ResponseEntity.ok("신청이 완료되었습니다.");
     }
 }
