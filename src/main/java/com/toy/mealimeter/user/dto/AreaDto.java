@@ -4,6 +4,7 @@ import com.toy.mealimeter.user.domain.Area;
 import io.swagger.annotations.ApiModel;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
@@ -15,6 +16,7 @@ public class AreaDto {
 
     @Getter
     @ToString
+    @Setter
     @ApiModel(value = "AreaDto.Req")
     public static class Req{
 
@@ -31,7 +33,6 @@ public class AreaDto {
                     .uid(uid)
                     .build();
         }
-
     }
 
     @Getter

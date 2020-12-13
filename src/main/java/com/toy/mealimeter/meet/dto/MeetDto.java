@@ -23,7 +23,7 @@ public class MeetDto {
     @Getter
     @ToString
     @ApiModel(value = "MeetDto.Req")
-    public static class Req{
+    public static class Req {
 
         @NotBlank(message = "필수값입니다.")
         private String title;
@@ -89,19 +89,23 @@ public class MeetDto {
 
         public static MeetDto.Res of(Meet meet) {
 
-            return Res.builder()
-                    .id(meet.getId())
-                    .title(meet.getTitle())
-                    .meetStatus(meet.getMeetStatus())
-                    .gender(meet.getGender())
-                    .minAge(meet.getMinAge())
-                    .maxAge(meet.getMaxAge())
-                    .maxNumber(meet.getMaxNumber())
-                    .meetDate(meet.getMeetDate())
-                    .meetMaster(UserDto.Res.of(meet.getMeetMaster()))
-                    .applyUserList(ApplyUserDto.Res.listOf(meet.getApplyUserList()))
-                    .enterUserList(EnterUserDto.Res.listOf(meet.getEnterUserList()))
-                    .build();
+            if (meet == null) {
+                return null;
+            } else {
+                return Res.builder()
+                        .id(meet.getId())
+                        .title(meet.getTitle())
+                        .meetStatus(meet.getMeetStatus())
+                        .gender(meet.getGender())
+                        .minAge(meet.getMinAge())
+                        .maxAge(meet.getMaxAge())
+                        .maxNumber(meet.getMaxNumber())
+                        .meetDate(meet.getMeetDate())
+                        .meetMaster(UserDto.Res.of(meet.getMeetMaster()))
+                        .applyUserList(ApplyUserDto.Res.listOf(meet.getApplyUserList()))
+                        .enterUserList(EnterUserDto.Res.listOf(meet.getEnterUserList()))
+                        .build();
+            }
         }
 
     }
@@ -136,7 +140,7 @@ public class MeetDto {
         public static List<MeetDto.SimpleRes> listOf(List<Meet> list) {
             if (list == null || list.isEmpty()) {
                 return null;
-            }else{
+            } else {
                 return list.stream().map(MeetDto.SimpleRes::of).collect(Collectors.toList());
             }
         }

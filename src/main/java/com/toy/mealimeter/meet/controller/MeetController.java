@@ -1,6 +1,7 @@
 package com.toy.mealimeter.meet.controller;
 
 import com.toy.mealimeter.config.security.SecurityService;
+import com.toy.mealimeter.meet.dto.ApplyUserDto;
 import com.toy.mealimeter.meet.dto.MeetDto;
 import com.toy.mealimeter.meet.service.MeetService;
 import com.toy.mealimeter.user.domain.User;
@@ -49,6 +50,15 @@ public class MeetController {
         return ResponseEntity.ok(meetService.getMeetList(user, pageable));
     }
 
+    @ApiOperation(value = "신청자 조회")
+    @GetMapping("/apply/{meetId}")
+    public ResponseEntity<List<ApplyUserDto.Res>> getApplyList(@PathVariable long meetId) {
+
+        User user = userRepository.findByUid(SecurityService.getUserId());
+
+        return ResponseEntity.ok(meetService.getApplyList(user, meetId));
+    }
+
     @ApiOperation(value = "방 입장 신청")
     @PostMapping("/apply/{meetId}")
     public ResponseEntity<String> applyUser(@PathVariable long meetId) {
@@ -60,12 +70,19 @@ public class MeetController {
     }
 
     @ApiOperation(value = "방 입장 승인")
-    @PostMapping("/entger/{meetId}")
-    public ResponseEntity<String> enterUser(@PathVariable long meetId) {
+    @PostMapping("/enter/{meetId}/{userId}")
+    public ResponseEntity<String> enterUser(@PathVariable long meetId, @PathVariable String userId) {
 
         User user = userRepository.findByUid(SecurityService.getUserId());
-        meetService.addEnterList(user, meetId);
+        meetService.addEnterList(user, meetId, userId);
 
-        return ResponseEntity.ok("신청이 완료되었습니다.");
+        return ResponseEntity.ok("입장 승인이 완료되었습니다.");
+    }
+
+    @ApiOperation(value = "내 방 조회", notes = "현재 참여 중인 방의 정보를 조회.")
+    @GetMapping("/myMeet")
+    public ResponseEntity<MeetDto.Res> getMeet() {
+        User user = userRepository.findByUid(SecurityService.getUserId());
+        return ResponseEntity.ok(meetService.getMeet(user));
     }
 }

@@ -44,7 +44,7 @@ public class Meet extends BaseTimeEntity {
     @OneToMany(mappedBy = "meet", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private final List<EnterUser> enterUserList = new ArrayList<>();
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "meet_master_uid_fk")
     private User meetMaster;
 
@@ -73,6 +73,10 @@ public class Meet extends BaseTimeEntity {
                 .build();
 
         applyUserList.add(applyUser);
+    }
+
+    public void removeApplyUser(ApplyUser user) {
+        applyUserList.remove(user);
     }
 
 }

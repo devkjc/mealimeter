@@ -27,4 +27,7 @@ public class EnterUser {
     @JoinColumn(name = "uid_fk")
     private User user;
 
+    @Enumerated(EnumType.STRING)
+    @Builder.Default
+    private final EnterStatus enterStatus = EnterStatus.Enter;
 }

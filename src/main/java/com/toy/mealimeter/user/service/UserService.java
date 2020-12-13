@@ -2,6 +2,7 @@ package com.toy.mealimeter.user.service;
 
 import com.toy.mealimeter.config.security.SecurityService;
 import com.toy.mealimeter.user.domain.User;
+import com.toy.mealimeter.user.dto.AreaDto;
 import com.toy.mealimeter.user.dto.UserDto;
 import com.toy.mealimeter.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final AreaService areaService;
 
     public UserDto.Res login() {
 
@@ -35,6 +37,19 @@ public class UserService {
         }else{
             throw new IllegalArgumentException("닉네임 중복을 다시 확인해주세요.");
         }
+    }
+
+    @Transactional
+    public UserDto.Res webJoin(UserDto.Req req) {
+        UserDto.Res join = join(req);
+
+        AreaDto.Req area = new AreaDto.Req();
+        area.setCity("서울특별시");
+        area.setGuGun("강남구");
+
+        areaService.addArea(join.getUid(), area);
+
+        return join;
     }
 
     public void deleteMember(String uid) {

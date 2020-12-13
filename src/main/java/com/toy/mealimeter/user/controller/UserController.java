@@ -40,6 +40,14 @@ public class UserController {
     }
 
     @ApiOperation(
+            value = "회원 가입.")
+    @PostMapping("/web/join")
+    public ResponseEntity<UserDto.Res> webJoin(@Valid @RequestBody @ApiParam(name = "UserDto.Req") UserDto.Req req) {
+        log.info(req);
+        return ResponseEntity.ok(userService.webJoin(req));
+    }
+
+    @ApiOperation(
             value = "닉네임 중복 검사",
             notes = "사용 가능 시 true 중복 시 false"
     )
