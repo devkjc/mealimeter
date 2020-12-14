@@ -10,16 +10,19 @@ import com.toy.mealimeter.meet.domain.Meet;
 import com.toy.mealimeter.meet.dto.ApplyUserDto;
 import com.toy.mealimeter.meet.dto.EnterUserDto;
 import com.toy.mealimeter.meet.dto.MeetDto;
+import com.toy.mealimeter.meet.repository.ApplyUserRepository;
 import com.toy.mealimeter.meet.repository.EnterUserRepository;
 import com.toy.mealimeter.meet.repository.MeetRepository;
 import com.toy.mealimeter.user.domain.User;
 import com.toy.mealimeter.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -28,6 +31,7 @@ public class MeetService {
 
     private final MeetRepository meetRepository;
     private final EnterUserRepository enterUserRepository;
+    private final ApplyUserRepository applyUserRepository;
     private final UserRepository userRepository;
 
     @Transactional
@@ -69,12 +73,6 @@ public class MeetService {
     }
 
     @Transactional
-    public void removeApplyList(ApplyUser user, long meetId) {
-        Meet meet = meetRepository.findById(meetId).orElseThrow(IllegalArgumentException::new);
-        meet.removeApplyUser(user);
-    }
-
-    @Transactional
     public void addEnterList(User master, long meetId, String userId) {
 
         Meet meet = meetRepository.findById(meetId).orElseThrow(IllegalArgumentException::new);
@@ -86,7 +84,28 @@ public class MeetService {
 
             if (user.meetCheck(meet)) {
                 meet.addEnterUser(applyUser.getUser());
-                meet.removeApplyUser(applyUser);
+                applyUser.setApplyStatus(ApplyUser.ApplyStatus.Accept);
+//                meet.removeApplyUser(applyUser);
+            } else {
+                throw new NotMatchingMeetException();
+            }
+        }else{
+            throw new NotMatchingMeetException();
+        }
+    }
+
+    @Transactional
+    public void rejectApplyUser(User master, long meetId, String uId) {
+
+        Meet meet = meetRepository.findById(meetId).orElseThrow(IllegalArgumentException::new);
+
+        if (meetMasterCheck(master, meet)) {
+
+            User user = userRepository.findByUid(uId);
+            ApplyUser applyUser = meet.getApplyUserList().stream().filter(apply -> apply.getUser().equals(user)).findFirst().orElseThrow(NoUserException::new);
+
+            if (user.meetCheck(meet)) {
+                applyUser.setApplyStatus(ApplyUser.ApplyStatus.Reject);
             } else {
                 throw new NotMatchingMeetException();
             }
@@ -101,7 +120,7 @@ public class MeetService {
 
         if (meet != null) {
             if (meetMasterCheck(user, meet)) {
-                return ApplyUserDto.Res.listOf(meet.getApplyUserList());
+                return ApplyUserDto.Res.listOf(meet.getApplyUserList().stream().filter(applyUser -> applyUser.getApplyStatus().equals(ApplyUser.ApplyStatus.Apply)).collect(Collectors.toList()));
             } else {
                 throw new NotMeetMasterException();
             }
@@ -118,4 +137,27 @@ public class MeetService {
     public Boolean meetMasterCheck(User user, Meet meet) {
         return meet.getMeetMaster().equals(user);
     }
+
+    public List<ApplyUserDto.Res> getApplyUser(User user, ApplyUser.ApplyStatus applyStatus) {
+        return ApplyUserDto.Res.listOf(applyUserRepository.findByUserAndApplyStatus(user, applyStatus));
+    }
+
+    public List<ApplyUserDto.Res> getApplyUser(User user) {
+        return ApplyUserDto.Res.listOf(applyUserRepository.findByUser(user));
+    }
+
+    @Transactional
+    public void cancelApplyUser(User user, long meetId) {
+        Meet meet = meetRepository.findById(meetId).orElseThrow(IllegalArgumentException::new);
+        ApplyUser applyUser = meet.getApplyUserList().stream().filter(applyUser1 -> applyUser1.getUser().equals(user)).findFirst().orElseThrow(IllegalArgumentException::new);
+        meet.removeApplyUser(applyUser);
+    }
+
+    @Transactional
+    public void exitEnterUser(User user, long meetId) {
+        Meet meet = meetRepository.findById(meetId).orElseThrow(IllegalArgumentException::new);
+        EnterUser enterUser = meet.getEnterUserList().stream().filter(enterUser1 -> enterUser1.getUser().equals(user)).findFirst().orElseThrow(IllegalArgumentException::new);
+        meet.removeEnterUser(enterUser);
+    }
+
 }

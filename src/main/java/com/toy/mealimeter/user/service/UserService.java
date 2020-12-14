@@ -77,4 +77,9 @@ public class UserService {
     private boolean nickNameCheck(String nickName) {
         return userRepository.countByNickName(nickName) < 1;
     }
+
+    public UserDto.SimpleRes getSimpleUser(String uId) {
+        User byUid = userRepository.findByUid(uId);
+        return UserDto.SimpleRes.of(byUid);
+    }
 }

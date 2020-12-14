@@ -59,6 +59,12 @@ public class UserController {
         return ResponseEntity.ok(userService.nickNameDuplication(nickName));
     }
 
+    @GetMapping("/{uId}")
+    public ResponseEntity<UserDto.SimpleRes> getSimpleUser(@PathVariable String uId) {
+
+        return ResponseEntity.ok(userService.getSimpleUser(uId));
+    }
+
     @DeleteMapping
     private ResponseEntity<?> deleteMember() {
         String uid = SecurityService.getUserId();

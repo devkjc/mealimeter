@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import net.bytebuddy.asm.Advice;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -77,6 +78,10 @@ public class Meet extends BaseTimeEntity {
 
     public void removeApplyUser(ApplyUser user) {
         applyUserList.remove(user);
+    }
+
+    public void removeEnterUser(EnterUser user) {
+        enterUserList.remove(user);
     }
 
 }

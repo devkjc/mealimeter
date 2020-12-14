@@ -29,7 +29,11 @@ public class ApplyUser {
 
     @Enumerated(EnumType.ORDINAL)
     @Builder.Default
-    private final ApplyStatus applyStatus = ApplyStatus.Apply;
+    private ApplyStatus applyStatus = ApplyStatus.Apply;
+
+    public void setApplyStatus(ApplyStatus applyStatus) {
+        this.applyStatus = applyStatus;
+    }
 
     public enum ApplyStatus {
         Apply,
