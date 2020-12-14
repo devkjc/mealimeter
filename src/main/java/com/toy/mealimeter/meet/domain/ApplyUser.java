@@ -1,5 +1,6 @@
 package com.toy.mealimeter.meet.domain;
 
+import com.toy.mealimeter.common.domain.BaseTimeEntity;
 import com.toy.mealimeter.user.domain.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,7 +14,7 @@ import javax.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ApplyUser {
+public class ApplyUser extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +28,7 @@ public class ApplyUser {
     @JoinColumn(name = "uid_fk")
     private User user;
 
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     @Builder.Default
     private ApplyStatus applyStatus = ApplyStatus.Apply;
 

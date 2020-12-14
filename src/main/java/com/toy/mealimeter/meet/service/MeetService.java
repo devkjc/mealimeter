@@ -138,12 +138,12 @@ public class MeetService {
         return meet.getMeetMaster().equals(user);
     }
 
-    public List<ApplyUserDto.Res> getApplyUser(User user, ApplyUser.ApplyStatus applyStatus) {
-        return ApplyUserDto.Res.listOf(applyUserRepository.findByUserAndApplyStatus(user, applyStatus));
+    public List<MeetDto.Res> getApplyUser(User user, ApplyUser.ApplyStatus applyStatus) {
+        return MeetDto.Res.listOf(applyUserRepository.findByUserAndApplyStatus(user, applyStatus).stream().map(ApplyUser::getMeet).collect(Collectors.toList()));
     }
 
-    public List<ApplyUserDto.Res> getApplyUser(User user) {
-        return ApplyUserDto.Res.listOf(applyUserRepository.findByUser(user));
+    public List<MeetDto.Res> getApplyUser(User user) {
+        return MeetDto.Res.listOf(applyUserRepository.findByUser(user).stream().map(ApplyUser::getMeet).collect(Collectors.toList()));
     }
 
     @Transactional
@@ -156,8 +156,14 @@ public class MeetService {
     @Transactional
     public void exitEnterUser(User user, long meetId) {
         Meet meet = meetRepository.findById(meetId).orElseThrow(IllegalArgumentException::new);
-        EnterUser enterUser = meet.getEnterUserList().stream().filter(enterUser1 -> enterUser1.getUser().equals(user)).findFirst().orElseThrow(IllegalArgumentException::new);
-        meet.removeEnterUser(enterUser);
+
+        if (meetMasterCheck(user, meet)) {
+            meetRepository.deleteById(meetId);
+        }else{
+            EnterUser enterUser = meet.getEnterUserList().stream().filter(enterUser1 -> enterUser1.getUser().equals(user)).findFirst().orElseThrow(IllegalArgumentException::new);
+            meet.removeEnterUser(enterUser);
+        }
+
     }
 
 }

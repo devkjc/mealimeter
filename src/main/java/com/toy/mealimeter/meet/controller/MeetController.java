@@ -89,14 +89,14 @@ public class MeetController {
 
     @ApiOperation(value = "내 신청목록 조회 (전체)")
     @GetMapping("/apply")
-    public ResponseEntity<List<ApplyUserDto.Res>> getApplyUser() {
+    public ResponseEntity<List<MeetDto.Res>> getApplyUser() {
         User user = userRepository.findByUid(SecurityService.getUserId());
         return ResponseEntity.ok(meetService.getApplyUser(user));
     }
 
     @ApiOperation(value = "내 신청목록 조회")
-    @GetMapping({"/apply/{applyStatus}"})
-    public ResponseEntity<List<ApplyUserDto.Res>> getApplyUser(@PathVariable ApplyUser.ApplyStatus applyStatus) {
+    @GetMapping({"/apply/my/{applyStatus}"})
+    public ResponseEntity<List<MeetDto.Res>> getApplyUser(@PathVariable ApplyUser.ApplyStatus applyStatus) {
         User user = userRepository.findByUid(SecurityService.getUserId());
         return ResponseEntity.ok(meetService.getApplyUser(user, applyStatus));
     }
@@ -111,7 +111,7 @@ public class MeetController {
         return ResponseEntity.ok("입장 승인이 완료되었습니다.");
     }
 
-    @ApiOperation(value = "방 나가기")
+    @ApiOperation(value = "방 나가기", notes = "방장이 나갈 시 방 삭제.")
     @DeleteMapping("/enter/{meetId}")
     public ResponseEntity<String> exitEnterUser(@PathVariable long meetId) {
         User user = userRepository.findByUid(SecurityService.getUserId());

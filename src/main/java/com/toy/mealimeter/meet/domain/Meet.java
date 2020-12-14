@@ -45,7 +45,7 @@ public class Meet extends BaseTimeEntity {
     @OneToMany(mappedBy = "meet", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private final List<EnterUser> enterUserList = new ArrayList<>();
 
-    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToOne
     @JoinColumn(name = "meet_master_uid_fk")
     private User meetMaster;
 

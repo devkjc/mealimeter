@@ -87,6 +87,14 @@ public class MeetDto {
         private final String restaurantName;
         private final String restaurantAddress;
 
+        public static List<MeetDto.Res> listOf(List<Meet> list) {
+            if (list == null || list.isEmpty()) {
+                return null;
+            } else {
+                return list.stream().map(MeetDto.Res::of).collect(Collectors.toList());
+            }
+        }
+
         public static MeetDto.Res of(Meet meet) {
 
             if (meet == null) {
