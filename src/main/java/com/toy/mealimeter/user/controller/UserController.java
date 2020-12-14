@@ -40,7 +40,7 @@ public class UserController {
     }
 
     @ApiOperation(
-            value = "회원 가입.")
+            value = "WEB 회원 가입.", notes = "회원 가입시 지역 자동 설정.")
     @PostMapping("/web/join")
     public ResponseEntity<UserDto.Res> webJoin(@Valid @RequestBody @ApiParam(name = "UserDto.Req") UserDto.Req req) {
         log.info(req);

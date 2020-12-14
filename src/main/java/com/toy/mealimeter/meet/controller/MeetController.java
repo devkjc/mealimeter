@@ -80,7 +80,7 @@ public class MeetController {
     }
 
     @ApiOperation(value = "내 방 조회", notes = "현재 참여 중인 방의 정보를 조회.")
-    @GetMapping("/myMeet")
+    @GetMapping("/my")
     public ResponseEntity<MeetDto.Res> getMeet() {
         User user = userRepository.findByUid(SecurityService.getUserId());
         return ResponseEntity.ok(meetService.getMeet(user));
